@@ -1,144 +1,102 @@
-import json
-import os
+employees = []
 
-FILE_NAME = "students.json"
+def create_employee():
+    employee_id = input("Enter employee ID: ")
+    name = input("Enter employee's name: ")
+    department = input("Enter employee department: ")
+    position = input("Enter employee's position: ")
+    salary = input("Enter employee's salary: ")
 
-def load_students():
-    if not os.path.exists(FILE_NAME):
-        return []
-    
-    with open(FILE_NAME, "r") as file:
-        return json.load(file)
-
-
-def save_students(students):
-    with open(FILE_NAME, "w") as file:
-        json.dump(students, file, indent=4)
-
-
-def add_student():
-    students = load_students()
-
-    student_id = input("Enter Student ID: ")
-
-    
-    for student in students:
-        if student["id"] == student_id:
-            print("❌ Student ID already exists!")
-            return
-
-    name = input("Enter Student Name: ")
-    age = input("Enter Student Age: ")
-    course = input("Enter Student Course: ")
-
-    new_student = {
-        "id": student_id,
-        "name": name,
-        "age": age,
-        "course": course
+    employee = {
+        "ID": employee_id,
+        "Name": name,
+        "Department": department,
+        "Position": position,
+        "Salary": salary
     }
 
-    students.append(new_student)
-    save_students(students)
-
-    print("✅ Student added successfully!")
+    employees.append(employee)
+    print(" Employee added successfully!")
 
 
-def view_students():
-    students = load_students()
-
-    if len(students) == 0:
-        print("📌 No students found!")
+def read_employee():
+    if not employees:
+        print(" No employees found.")
         return
 
-    print("\n--- STUDENT LIST ---")
-    for student in students:
-        print(f"ID: {student['id']} | Name: {student['name']} | Age: {student['age']} | Course: {student['course']}")
+    print(" Employee list:")
+    for emp in employees:
+        print(emp)
+    print()
 
 
-def update_student():
-    students = load_students()
-    student_id = input("Enter Student ID to update: ")
+def search_employee():
+    emp_id = input("Enter the employee ID you want to search: ")
 
-    for student in students:
-        if student["id"] == student_id:
-            print("\nLeave blank if you don’t want to change a field.")
-
-            new_name = input(f"Enter new name ({student['name']}): ")
-            new_age = input(f"Enter new age ({student['age']}): ")
-            new_course = input(f"Enter new course ({student['course']}): ")
-
-            if new_name != "":
-                student["name"] = new_name
-            if new_age != "":
-                student["age"] = new_age
-            if new_course != "":
-                student["course"] = new_course
-
-            save_students(students)
-            print("✅ Student updated successfully!")
+    for emp in employees:
+        if emp["ID"] == emp_id:
+            print(" Employee found:", emp)
             return
 
-    print("❌ Student not found!")
+    print(" Employee not found.")
 
 
-def delete_student():
-    students = load_students()
-    student_id = input("Enter Student ID to delete: ")
+def update_employee():
+    emp_id = input("Enter employee ID to update: ")
 
-    for student in students:
-        if student["id"] == student_id:
-            students.remove(student)
-            save_students(students)
-            print("✅ Student deleted successfully!")
+    for emp in employees:
+        if emp["ID"] == emp_id:
+            print("Current Data:", emp)
+
+            emp["Name"] = input("Enter new name: ")
+            emp["Department"] = input("Enter new department: ")
+            emp["Position"] = input("Enter new position: ")
+            emp["Salary"] = input("Enter new salary: ")
+
+            print("Employee updated successfully!")
             return
 
-    print("❌ Student not found!")
+    print(" Employee not found.\n")
 
 
-def search_student():
-    students = load_students()
-    student_id = input("Enter Student ID to search: ")
+def delete_employee():
+    emp_id = input("Enter Employee ID to delete: ")
 
-    for student in students:
-        if student["id"] == student_id:
-            print("\n--- STUDENT FOUND ---")
-            print(f"ID: {student['id']}")
-            print(f"Name: {student['name']}")
-            print(f"Age: {student['age']}")
-            print(f"Course: {student['course']}")
+    for emp in employees:
+        if emp["ID"] == emp_id:
+            employees.remove(emp)
+            print(" Employee deleted successfully!")
             return
 
-    print("❌ Student not found!")
+    print(" Employee not found.")
 
-
-def main():
+def menu():
     while True:
-        print("\n===== STUDENT MANAGEMENT SYSTEM =====")
-        print("1. Add Student")
-        print("2. View Students")
-        print("3. Update Student")
-        print("4. Delete Student")
-        print("5. Search Student")
+        print("====== COMPANY EMPLOYEE SYSTEM ======")
+        print("1. Add Employee")
+        print("2. View Employees")
+        print("3. Search Employee")
+        print("4. Update Employee")
+        print("5. Delete Employee")
         print("6. Exit")
 
         choice = input("Choose an option: ")
 
         if choice == "1":
-            add_student()
+            create_employee()
         elif choice == "2":
-            view_students()
+            read_employee()
         elif choice == "3":
-            update_student()
+            search_employee()
         elif choice == "4":
-            delete_student()
+            update_employee()
         elif choice == "5":
-            search_student()
+            delete_employee()
         elif choice == "6":
-            print("👋 Exiting program. Goodbye!")
+            print(" Goodbye!")
             break
         else:
-            print("❌ Invalid choice. Try again!")
+            print(" Invalid choice. Try again.")
 
 
-main()
+menu()
