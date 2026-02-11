@@ -1,102 +1,108 @@
-employees = []
-
-def create_employee():
-    employee_id = input("Enter employee ID: ")
-    name = input("Enter employee's name: ")
-    department = input("Enter employee department: ")
-    position = input("Enter employee's position: ")
-    salary = input("Enter employee's salary: ")
-
-    employee = {
-        "ID": employee_id,
-        "Name": name,
-        "Department": department,
-        "Position": position,
-        "Salary": salary
-    }
-
-    employees.append(employee)
-    print(" Employee added successfully!")
+import sqlite3
 
 
-def read_employee():
+conn = sqlite3.connect("employees.db")
+cursor = conn.cursor()
+
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS employees (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    position TEXT NOT NULL,
+    salary REAL
+)
+''')
+conn.commit()
+
+
+def add_employee():
+    name = input("Enter employee name: ")
+    position = input("Enter employee position: ")
+    salary = float(input("Enter employee salary: "))
+    
+    cursor.execute("INSERT INTO employees (name, position, salary) VALUES (?, ?, ?)",
+                   (name, position, salary))
+    conn.commit()
+    print(f"Employee {name} added successfully!\n")
+
+
+def view_employees():
+    cursor.execute("SELECT * FROM employees")
+    employees = cursor.fetchall()
+    
     if not employees:
-        print(" No employees found.")
+        print("No employees found.\n")
         return
-
-    print(" Employee list:")
+    
+    print("\n--- Employees List ---")
     for emp in employees:
-        print(emp)
+        print(f"ID: {emp[0]}, Name: {emp[1]}, Position: {emp[2]}, Salary: {emp[3]}")
     print()
-
-
-def search_employee():
-    emp_id = input("Enter the employee ID you want to search: ")
-
-    for emp in employees:
-        if emp["ID"] == emp_id:
-            print(" Employee found:", emp)
-            return
-
-    print(" Employee not found.")
 
 
 def update_employee():
     emp_id = input("Enter employee ID to update: ")
-
-    for emp in employees:
-        if emp["ID"] == emp_id:
-            print("Current Data:", emp)
-
-            emp["Name"] = input("Enter new name: ")
-            emp["Department"] = input("Enter new department: ")
-            emp["Position"] = input("Enter new position: ")
-            emp["Salary"] = input("Enter new salary: ")
-
-            print("Employee updated successfully!")
-            return
-
-    print(" Employee not found.\n")
+    
+    cursor.execute("SELECT * FROM employees WHERE id = ?", (emp_id,))
+    employee = cursor.fetchone()
+    
+    if not employee:
+        print("Employee not found.\n")
+        return
+    
+    name = input(f"Enter new name ({employee[1]}): ") or employee[1]
+    position = input(f"Enter new position ({employee[2]}): ") or employee[2]
+    salary_input = input(f"Enter new salary ({employee[3]}): ")
+    salary = float(salary_input) if salary_input else employee[3]
+    
+    cursor.execute("UPDATE employees SET name=?, position=?, salary=? WHERE id=?",
+                   (name, position, salary, emp_id))
+    conn.commit()
+    print(f"Employee ID {emp_id} updated successfully!\n")
 
 
 def delete_employee():
-    emp_id = input("Enter Employee ID to delete: ")
+    emp_id = input("Enter employee ID to delete: ")
+    
+    cursor.execute("SELECT * FROM employees WHERE id = ?", (emp_id,))
+    employee = cursor.fetchone()
+    
+    if not employee:
+        print("Employee not found.\n")
+        return
+    
+    cursor.execute("DELETE FROM employees WHERE id = ?", (emp_id,))
+    conn.commit()
+    print(f"Employee ID {emp_id} deleted successfully!\n")
 
-    for emp in employees:
-        if emp["ID"] == emp_id:
-            employees.remove(emp)
-            print(" Employee deleted successfully!")
-            return
 
-    print(" Employee not found.")
-
-def menu():
+def main():
     while True:
-        print("====== COMPANY EMPLOYEE SYSTEM ======")
+        print("=== Employee Management System ===")
         print("1. Add Employee")
         print("2. View Employees")
-        print("3. Search Employee")
-        print("4. Update Employee")
-        print("5. Delete Employee")
-        print("6. Exit")
-
-        choice = input("Choose an option: ")
-
+        print("3. Update Employee")
+        print("4. Delete Employee")
+        print("5. Exit")
+        
+        choice = input("Enter your choice: ")
+        
         if choice == "1":
-            create_employee()
+            add_employee()
         elif choice == "2":
-            read_employee()
+            view_employees()
         elif choice == "3":
-            search_employee()
-        elif choice == "4":
             update_employee()
-        elif choice == "5":
+        elif choice == "4":
             delete_employee()
-        elif choice == "6":
-            print(" Goodbye!")
+        elif choice == "5":
+            print("Goodbye!")
             break
         else:
-            print(" Invalid choice. Try again.")
+            print("Invalid choice. Try again.\n")
 
 
-menu()
+if __name__ == "__main__":
+    main()
+    conn.close()
