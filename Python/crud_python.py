@@ -79,7 +79,7 @@ def delete_employee():
 
 def main():
     while True:
-        print("=== Employee Management System ===")
+        print(" Employee Management System ")
         print("1. Add Employee")
         print("2. View Employees")
         print("3. Update Employee")
