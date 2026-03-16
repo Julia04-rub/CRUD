@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Employee System</title>
+<link rel="stylesheet" href="/style.css?v=3">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="logout-icon" onclick="logout()">
+<i class="fa-solid fa-right-from-bracket"></i>
+</div>
+
+<div class="dashboard_container">
+
+<h1>Employee CRUD database System</h1>
+
+<div class="form-box">
+
+<input id="name" placeholder="Name">
+<input id="position" placeholder="Position">
+<input id="salary" placeholder="Salary">
+
+<button id="addBtn" onclick="addEmployee()">Add Employee</button>
+
+</div>
+
+<h2>Employee List</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Position</th>
+<th>Salary</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody id="employeeTable"></tbody>
+
+</table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

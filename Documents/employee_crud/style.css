@@ -1,0 +1,194 @@
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: linear-gradient(135deg, #158949, #043f33);
+  margin: 0;
+  padding: 0;
+  
+}
+.login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #158949, #043f33);
+}
+
+.login_container {
+  width: 100%;
+  max-width: 543px;
+  background: white;
+  padding: 15px;
+  border-radius:30px;
+  box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
+.dashboard_container{
+  width: 90%;
+  max-width: 1200px;
+  background: white;
+  padding: 30px;
+  border-radius: 0px;
+  margin: 60px auto;  
+  box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
+}
+.logout-icon{
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #dc3545;
+  color: white;
+  font-size: 22px;
+  padding: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+  z-index: 9999;
+}
+
+.logout-icon:hover{
+  background: #b02a37;
+  transform: scale(1.1);
+}
+h1 {
+  text-align: center;
+  color: #222;
+  font-size: 27px;
+  margin-bottom: 25px;
+}
+
+
+h2 {
+  color: #333;
+  margin-top: 30px;
+}
+
+
+.form-box {
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f9fbff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}
+
+
+.form-box input {
+  display: block;
+  width: 79%;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s;
+}
+
+
+.form-box input:focus {
+  border: 1px solid #007bff;
+  box-shadow: 0px 0px 5px rgba(0,123,255,0.4);
+}
+
+
+button {
+  width: 30%;
+  padding: 12px;
+  background:#17762d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+
+#addBtn {
+  background: #17762d;
+  color: white;
+}
+
+
+#addBtn:hover {
+  background: #218838;
+}
+
+
+#updateBtn {
+  background: #007bff;
+  color: white;
+}
+
+
+#updateBtn:hover {
+  background: #0056b3;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+table th {
+  background: #212529;
+  color: white;
+  padding: 15px;
+  font-size: 15px;
+}
+
+
+table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+table tr:hover {
+  background: #f1f5ff;
+}
+
+
+.action-btn {
+  padding: 8px 12px;
+  margin: 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s;
+}
+
+
+.edit-btn {
+  background: #ffc107;
+  color: black;
+}
+
+
+.edit-btn:hover {
+  background: #e0a800;
+}
+
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  font-size: small;
+}
+
+.delete-btn:hover {
+  background: #b02a37;
+}
+
+
+
